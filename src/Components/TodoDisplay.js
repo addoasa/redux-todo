@@ -1,50 +1,47 @@
 import React from 'react';
 import '../style/App.css';
-import LastItemDisplay from './LastItemDisplay'
+import LastItemDisplay from './LastItemDisplay';
 
+// 5) we need to import the connect method
+import { connect } from 'react-redux';
+
+// 5.2) mapStateToProps() is a method that will inject redux state from 
+// your redux store into your Props object. It returns an object.
+
+// store.todoReducer refers to the key called "todoReducer" in the keyvalue 
+// pair we set up in the ./reducers/index.js
+
+//**NOTE **/ mapStateToProps and mapDispatchToProps should always go outside of your react component.
+
+const mapStateToProps = (store) => ({
+    todoState: store.todoReducer
+})
 
 class TodoDisplay extends React.Component {
-    //-------------------------------------
-    // We have a simple array saved in state
-    //-------------------------------------
+
     constructor(){
         super()
-        // this.state = {
-        //     savedTodoItems:["Itzamna", "Chowder"],
-        //     isSheAwesome:true,
-        // }
         this.submitForm = this.submitForm.bind(this)
     }
 
     //-------------------------------------
-    // When we submit the form, we grab the
-    // input value and push it into our array
-    // in state (using setState())
+    // When we submit the form, we call this function
     //-------------------------------------
     submitForm(event){
         event.preventDefault();
 
         // grab the input that the user typed in
         const inputtedItem = document.querySelector("#inputted-item");
-        
-        //-------------------------------------
-        // Use the weirder looking version of set state to update state
-        // The parameters "state" and "props" and copies of this components state and props
-        // That way you can manipulate them without touching the real state or real props
-        //-------------------------------------
 
-        // this.setState((state, props) => {
-        //     state.savedTodoItems.push(inputtedItem.value);
-        //     return {savedTodoItems: state.savedTodoItems};
-        // });
-
-        // this.setState({
-        //     isSheAwesome:true,
-        //     savedTodoItems:this.state.savedTodoItems.push(),
-        // });
     }
 
   render(){
+    // ---------------------------------------
+    // 5.3) From now on we can refer to our redux state 
+    // through our props object aka this.props.todoState.savedTodoItems 
+    // ---------------------------------------
+      console.log(this.props.todoState.savedTodoItems)
+
     //-------------------------------------
     // Loop through all todo items in state (using map()) 
     // and render a <h5></h5> for each todo item
@@ -70,5 +67,14 @@ class TodoDisplay extends React.Component {
     );
   }
 }
+// --------------------------------------------------------------------------
+// 5.1) This will be how we tell react that this component will be connecting to our redux store
+// --------------------------------------------------------------------------
+export default connect(mapStateToProps,null)(TodoDisplay);
 
-export default TodoDisplay;
+// ** Note
+// There are two methods used in the connect():
+// mapStateToProps => used for getting and using state in this component
+// mapDispatchToProps => used for setting/changing state
+
+// export default connect(mapStateToProps,mapDispatchToProps)(TodoDisplay);

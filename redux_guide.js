@@ -161,7 +161,7 @@
         })
 
         export const removeSVG = (SVG, classId)=>({
-          type:"SET_RANGE1x",
+          type:"REMOVESVG",
           payload: {SVG, classId},
         })
 
