@@ -9,10 +9,10 @@ class TodoDisplay extends React.Component {
     //-------------------------------------
     constructor(){
         super()
-        this.state = {
-            savedTodoItems:["Itzamna", "Chowder"],
-            isSheAwesome:true,
-        }
+        // this.state = {
+        //     savedTodoItems:["Itzamna", "Chowder"],
+        //     isSheAwesome:true,
+        // }
         this.submitForm = this.submitForm.bind(this)
     }
 
@@ -27,13 +27,16 @@ class TodoDisplay extends React.Component {
         // grab the input that the user typed in
         const inputtedItem = document.querySelector("#inputted-item");
         
+        //-------------------------------------
         // Use the weirder looking version of set state to update state
         // The parameters "state" and "props" and copies of this components state and props
         // That way you can manipulate them without touching the real state or real props
-        this.setState((state, props) => {
-            state.savedTodoItems.push(inputtedItem.value);
-            return {savedTodoItems: state.savedTodoItems};
-        });
+        //-------------------------------------
+
+        // this.setState((state, props) => {
+        //     state.savedTodoItems.push(inputtedItem.value);
+        //     return {savedTodoItems: state.savedTodoItems};
+        // });
 
         // this.setState({
         //     isSheAwesome:true,
@@ -48,9 +51,9 @@ class TodoDisplay extends React.Component {
     //-------------------------------------
 
     // looping through the array in state
-    const listOfItems = this.state.savedTodoItems.map((item)=>{
-         return(<h5>{item}</h5>)
-    })
+    // const listOfItems = this.state.savedTodoItems.map((item)=>{
+    //      return(<h5>{item}</h5>)
+    // })
       return (
         <div>  
             <form onSubmit ={this.submitForm}>
@@ -61,7 +64,7 @@ class TodoDisplay extends React.Component {
                 {/*//------------------------------------- */}
                 {/*Here we are rendering the <h5></h5>s that we made earlier (using the variable "listOfItems") */}
                 {/*//------------------------------------- */}
-                {listOfItems}
+                {/* {listOfItems} */}
             </div>
         </div>
     );
