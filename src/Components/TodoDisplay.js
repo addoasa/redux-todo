@@ -1,5 +1,7 @@
 import React from 'react';
 import '../style/App.css';
+import LastItemDisplay from './LastItemDisplay'
+
 
 class TodoDisplay extends React.Component {
     //-------------------------------------
@@ -8,7 +10,8 @@ class TodoDisplay extends React.Component {
     constructor(){
         super()
         this.state = {
-            savedTodoItems:["Itzamna", "Chowder"]
+            savedTodoItems:["Itzamna", "Chowder"],
+            isSheAwesome:true,
         }
         this.submitForm = this.submitForm.bind(this)
     }
@@ -30,7 +33,12 @@ class TodoDisplay extends React.Component {
         this.setState((state, props) => {
             state.savedTodoItems.push(inputtedItem.value);
             return {savedTodoItems: state.savedTodoItems};
-          });
+        });
+
+        // this.setState({
+        //     isSheAwesome:true,
+        //     savedTodoItems:this.state.savedTodoItems.push(),
+        // });
     }
 
   render(){

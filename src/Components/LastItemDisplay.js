@@ -19,7 +19,7 @@ class LastItemDisplay extends React.Component {
 
       return (
         <div id="last-item-display">
-          The last item added goes in here:
+          The last item added goes in here: 
         </div>
     );
   }
