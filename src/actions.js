@@ -1,3 +1,7 @@
+// 9) import actiontypes as a means of triggering errors when we make typos... this is better than using plain strings because at least misspelling a variable will thown an error
+
+import * as types from "./actionTypes";
+
 //------------------------------
 // 6) Here we create our actions.
 // Its okay to be confused at this point... trust me
@@ -20,19 +24,20 @@
 
 
 
-const addTodoItem = (itemToAdd)=>{
+export const addToDoItem = (itemToAdd)=>{
   return({
-      type:"ADD_TODO_ITEM",
+      type:types.ADD_TODO_ITEM,
       payload: itemToAdd
   });
 }
 
 // another sample that is not implemented in our app yet
-const removeTodoItem = (itemToRemove)=>{
+export const removeTodoItem = (itemToRemove)=>{
   return({
       type:"REMOVE_TODO_ITEM",
-      payload: itemToRemove
+      payload: {itemToRemove}
   });
 }
 
 // 6.1) after setting your action, go to the reducer (todoReducer.js) to split up the logic based on the action it receives. 
+

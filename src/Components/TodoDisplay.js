@@ -1,6 +1,7 @@
 import React from 'react';
 import '../style/App.css';
-import LastItemDisplay from './LastItemDisplay';
+// 8) Make sure to import the specific actions that this component will be using 
+import { addToDoItem } from '../actions';
 
 // 5) we need to import the connect method
 import { connect } from 'react-redux';
@@ -15,6 +16,11 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (store) => ({
     todoState: store.todoReducer
+})
+
+// 8.1) use mapDispatchToProps to inject actions into your props object. Dispatch is a method that will send this action to the reducer.
+const mapDispatchToProps = dispatch => ({
+    addToDoItem : (itemToAdd)=> dispatch(addToDoItem(itemToAdd)),
 })
 
 class TodoDisplay extends React.Component {
@@ -32,6 +38,7 @@ class TodoDisplay extends React.Component {
 
         // grab the input that the user typed in
         const inputtedItem = document.querySelector("#inputted-item");
+        this.props.addToDoItem(inputtedItem.value)
 
     }
 
@@ -40,7 +47,7 @@ class TodoDisplay extends React.Component {
     // 5.3) From now on we can refer to our redux state 
     // through our props object aka this.props.todoState.savedTodoItems 
     // ---------------------------------------
-      console.log(this.props.todoState.savedTodoItems)
+      console.log(this.props.todoState.savedToDoItems)
 
     //-------------------------------------
     // Loop through all todo items in state (using map()) 
@@ -48,9 +55,9 @@ class TodoDisplay extends React.Component {
     //-------------------------------------
 
     // looping through the array in state
-    // const listOfItems = this.state.savedTodoItems.map((item)=>{
-    //      return(<h5>{item}</h5>)
-    // })
+    const listOfItems =this.props.todoState.savedToDoItems.map((item, id)=>{
+         return(<h5 key={id}>{item}</h5>)
+    })
       return (
         <div>  
             <form onSubmit ={this.submitForm}>
@@ -61,7 +68,7 @@ class TodoDisplay extends React.Component {
                 {/*//------------------------------------- */}
                 {/*Here we are rendering the <h5></h5>s that we made earlier (using the variable "listOfItems") */}
                 {/*//------------------------------------- */}
-                {/* {listOfItems} */}
+                {listOfItems} 
             </div>
         </div>
     );
@@ -70,11 +77,12 @@ class TodoDisplay extends React.Component {
 // --------------------------------------------------------------------------
 // 5.1) This will be how we tell react that this component will be connecting to our redux store
 // --------------------------------------------------------------------------
-export default connect(mapStateToProps,null)(TodoDisplay);
+export default connect(mapStateToProps,mapDispatchToProps)(TodoDisplay);
 
 // ** Note
 // There are two methods used in the connect():
 // mapStateToProps => used for getting and using state in this component
 // mapDispatchToProps => used for setting/changing state
 
+// Use null if you arent using mapDispatchToProps like this => export default connect(mapStateToProps,null)(TodoDisplay); 
 // export default connect(mapStateToProps,mapDispatchToProps)(TodoDisplay);
